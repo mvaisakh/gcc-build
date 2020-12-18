@@ -35,6 +35,7 @@ build_gcc () {
     ../gcc/configure --target=$TARGET \
                      --prefix="$PREFIX" \
                      --disable-nls \
+                     --disable-shared \
                      --enable-languages=c,c++ \
                      --without-headers
     make all-gcc -j8
