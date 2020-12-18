@@ -22,6 +22,7 @@ build_binutils () {
                           --prefix="$PREFIX" \
                           --with-sysroot \
                           --disable-nls \
+                          --disable-docs \
                           --disable-werror
     make CFLAGS="-flto -O3" -j8
     make install -j8
@@ -36,6 +37,7 @@ build_gcc () {
                      --prefix="$PREFIX" \
                      --disable-nls \
                      --disable-shared \
+                     --disable-docs \
                      --enable-languages=c,c++ \
                      --without-headers
     make CFLAGS="-flto -O3" all-gcc -j8
