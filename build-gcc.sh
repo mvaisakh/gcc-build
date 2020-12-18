@@ -23,7 +23,8 @@ build_binutils () {
                           --with-sysroot \
                           --disable-nls \
                           --disable-docs \
-                          --disable-werror
+                          --disable-werror \
+                          --disable-gdb
     make CFLAGS="-flto -O3" -j8
     make install -j8
     cd ../
@@ -40,8 +41,8 @@ build_gcc () {
                      --disable-docs \
                      --enable-languages=c,c++ \
                      --without-headers
-    make CFLAGS="-flto -O3" all-gcc -j8
-    make CFLAGS="-flto -O3" all-target-libgcc -j8
+    make CFLAGS="-flto -O3" CXXFLAGS="-flto -O3" all-gcc -j8
+    make CFLAGS="-flto -O3" CXXFLAGS="-flto -O3" all-target-libgcc -j8
     make install-gcc -j8
     make install-target-libgcc -j8
 }
