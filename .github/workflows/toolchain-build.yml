@@ -1,0 +1,21 @@
+name: Toolchain Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup
+      run: sudo apt-get install -y build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo libisl-dev --fix-broken
+    - name: Set build date
+      id: get-date
+      run: |
+        echo ::set-output name=date::$(/bin/date -u "+%Y%m%d")
+    - name: Start the script
+      run: ./build-gcc.sh
