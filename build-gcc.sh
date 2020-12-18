@@ -4,7 +4,7 @@ echo "******************************"
 echo "* Building Bleeding Edge GCC *"
 echo "******************************"
 
-export PREFIX="$HOME/opt/cross"
+export PREFIX="$PWD/arm64-gcc"
 export TARGET=aarch64-elf
 export PATH="$PREFIX/bin:$PATH"
 
