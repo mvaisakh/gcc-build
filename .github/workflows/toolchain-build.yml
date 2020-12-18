@@ -19,3 +19,17 @@ jobs:
         echo ::set-output name=date::$(/bin/date -u "+%Y%m%d")
     - name: Start the script
       run: ./build-gcc.sh
+    - name: Push the toolchain
+      run: |
+        git config --global user.name "${GITHUB_USER}"
+        git config --global user.email "${GITHUB_EMAIL}"
+        cd arm64-gcc
+        git remote add origin https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc
+        git add . -f
+        git checkout -b gcc-master
+        git commit -m "Import GCC ${{ steps.get-date.outputs.date }}"
+        git push origin gcc-master
+      env:
+        GITHUB_EMAIL: ${{ secrets.EMAIL }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_USER: ${{ secrets.USERNAME }}
