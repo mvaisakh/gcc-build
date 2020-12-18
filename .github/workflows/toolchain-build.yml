@@ -23,7 +23,7 @@ jobs:
       run: |
         git config --global user.name "${GITHUB_USER}"
         git config --global user.email "${GITHUB_EMAIL}"
-        cd arm64-gcc
+        cd ../arm64-gcc
         git remote add origin https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc
         git add . -f
         git checkout -b gcc-master
