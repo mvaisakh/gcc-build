@@ -21,7 +21,7 @@ jobs:
       run: |
         git config --global user.name "${GITHUB_USER}"
         git config --global user.email "${GITHUB_EMAIL}"
-        git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc ../gcc-arm -b gcc-master
+        git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/gcc-arm ../gcc-arm -b gcc-master
         ./build-gcc.sh -a arm
         cd ../gcc-arm
         git init
