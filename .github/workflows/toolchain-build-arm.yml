@@ -1,0 +1,35 @@
+name: Toolchain Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup
+      run: sudo apt-get install -y build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo libisl-dev --fix-broken
+    - name: Set build date
+      id: get-date
+      run: |
+        echo ::set-output name=date::$(/bin/date -u "+%Y%m%d")
+    - name: Build & Push
+      run: |
+        git config --global user.name "${GITHUB_USER}"
+        git config --global user.email "${GITHUB_EMAIL}"
+        git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc ../gcc-arm -b gcc-master
+        ./build-gcc.sh -a arm
+        cd ../gcc-arm
+        git init
+        git add . -f
+        git commit -m "Import GCC ${{ steps.get-date.outputs.date }}"
+        git gc
+        git push origin gcc-master
+      env:
+        GITHUB_EMAIL: ${{ secrets.EMAIL }}
+        GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+        GITHUB_USER: ${{ secrets.USERNAME }}

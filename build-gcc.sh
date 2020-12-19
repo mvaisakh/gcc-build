@@ -4,9 +4,22 @@ echo "******************************"
 echo "* Building Bleeding Edge GCC *"
 echo "******************************"
 
-export PREFIX="$PWD/../arm64-gcc"
-export TARGET=aarch64-elf
+while getopts a: flag
+do
+    case "${flag}" in
+        a) arch=${OPTARG};;
+    esac
+done
+
+case "${arch}" in
+    "arm") TARGET="arm-eabi" ;;
+    "arm64") TARGET="aarch64-elf" ;;
+esac
+
+export PREFIX="$PWD/../gcc-${arch}"
 export PATH="$PREFIX/bin:$PATH"
+
+echo "Building Bare Metal Toolchain for ${arch} with ${TARGET} as target"
 
 download_resources () {
     echo "Downloading Pre-requisites"

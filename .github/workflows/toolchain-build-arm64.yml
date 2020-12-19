@@ -21,10 +21,9 @@ jobs:
       run: |
         git config --global user.name "${GITHUB_USER}"
         git config --global user.email "${GITHUB_EMAIL}"
-        git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc ../arm64-gcc
-        ./build-gcc.sh
-        cd ../arm64-gcc
-        git checkout -b gcc-master
+        git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc ../gcc-arm64 -b gcc-master
+        ./build-gcc.sh -a arm64
+        cd ../gcc-arm64
         git add . -f
         git commit -m "Import GCC ${{ steps.get-date.outputs.date }}"
         git gc
