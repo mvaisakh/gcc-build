@@ -16,6 +16,7 @@ case "${arch}" in
     "arm64") TARGET="aarch64-elf" ;;
 esac
 
+export WORK_DIR="$PWD"
 export PREFIX="$PWD/../gcc-${arch}"
 export PATH="$PREFIX/bin:$PATH"
 
@@ -29,9 +30,11 @@ download_resources () {
     hg clone https://gmplib.org/repo/gmp/ gcc/gmp
     git clone https://gitlab.inria.fr/mpc/mpc.git -b master --depth=1 gcc/mpc
     svn checkout https://scm.gforge.inria.fr/anonscm/svn/mpfr/trunk gcc/mpfr
+    cd ${WORK_DIR}
 }
 
 build_binutils () {
+    cd ${WORK_DIR}
     echo "Building Binutils"
     mkdir build-binutils
     cd build-binutils
@@ -42,24 +45,35 @@ build_binutils () {
                           --disable-docs \
                           --disable-werror \
                           --disable-gdb
-    make CFLAGS="-flto -O3" -j8
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j8
     make install -j8
     cd ../
 }
 
 build_gcc () {
+    cd ${WORK_DIR}
     echo "Building GCC"
     mkdir build-gcc
     cd build-gcc
     ../gcc/configure --target=$TARGET \
                      --prefix="$PREFIX" \
+                     --disable-decimal-float \
+                     --disable-libffi \
+                     --disable-libgomp \
+                     --disable-libmudflap \
+                     --disable-libquadmath \
+                     --disable-libssp \
+                     --disable-libstdcxx-pch \
                      --disable-nls \
                      --disable-shared \
                      --disable-docs \
                      --enable-languages=c,c++ \
-                     --without-headers
-    make CFLAGS="-flto -O3" CXXFLAGS="-flto -O3" all-gcc -j8
-    make CFLAGS="-flto -O3" CXXFLAGS="-flto -O3" all-target-libgcc -j8
+                     --with-newlib \
+                     --with-gnu-as \
+                     --with-gnu-ld \
+                     --with-sysroot
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j8
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j8
     make install-gcc -j8
     make install-target-libgcc -j8
 }
