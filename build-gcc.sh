@@ -26,10 +26,6 @@ download_resources () {
     echo "Downloading Pre-requisites"
     git clone git://sourceware.org/git/binutils-gdb.git -b master binutils --depth=1
     git clone https://git.linaro.org/toolchain/gcc.git -b master gcc --depth=1
-    git clone git://repo.or.cz/isl.git --depth=1 gcc/isl
-    hg clone https://gmplib.org/repo/gmp/ gcc/gmp
-    git clone https://gitlab.inria.fr/mpc/mpc.git -b master --depth=1 gcc/mpc
-    svn checkout https://scm.gforge.inria.fr/anonscm/svn/mpfr/trunk gcc/mpfr
     cd ${WORK_DIR}
 }
 
@@ -53,6 +49,9 @@ build_binutils () {
 build_gcc () {
     cd ${WORK_DIR}
     echo "Building GCC"
+    cd gcc
+    ./contrib/download_prerequisites
+    cd ../
     mkdir build-gcc
     cd build-gcc
     ../gcc/configure --target=$TARGET \
