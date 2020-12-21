@@ -67,6 +67,7 @@ build_gcc () {
                      --disable-shared \
                      --disable-docs \
                      --enable-languages=c,c++ \
+                     --with-pkgversion="Eva GCC" \
                      --with-newlib \
                      --with-gnu-as \
                      --with-gnu-ld \
