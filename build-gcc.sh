@@ -40,7 +40,9 @@ build_binutils () {
                           --disable-nls \
                           --disable-docs \
                           --disable-werror \
-                          --disable-gdb
+                          --disable-gdb \
+                          --enable-gold \
+                          --with-pkgversion="Custom BinUtils"
     make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j8
     make install -j8
     cd ../
@@ -66,6 +68,7 @@ build_gcc () {
                      --disable-nls \
                      --disable-shared \
                      --disable-docs \
+                     --enable-default-ssp \
                      --enable-languages=c,c++ \
                      --with-pkgversion="Eva GCC" \
                      --with-newlib \
