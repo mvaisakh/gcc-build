@@ -67,7 +67,6 @@ build_gcc () {
                      --disable-libgomp \
                      --disable-libmudflap \
                      --disable-libquadmath \
-                     --disable-libssp \
                      --disable-libstdcxx-pch \
                      --disable-nls \
                      --disable-shared \
