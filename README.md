@@ -53,3 +53,7 @@ git clone https://github.com/mvaisakh/gcc-build.git gcc-build
 GCC Cross Compiler Builds are automated, and pushed to:
 * **[ARM64](https://github.com/mvaisakh/gcc-arm64)**
 * **[ARM32](https://github.com/mvaisakh/gcc-arm)**
+
+## Contributing to this repo
+
+Feel free to fork and improve the script, add features and do a pull request. All contributions are welcome!
