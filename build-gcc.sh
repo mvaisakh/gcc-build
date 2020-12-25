@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0
+# Author: Vaisakh Murali
 
 echo "******************************"
 echo "* Building Bleeding Edge GCC *"
