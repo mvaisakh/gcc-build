@@ -6,6 +6,7 @@ echo "******************************"
 echo "* Building Bleeding Edge GCC *"
 echo "******************************"
 
+# TODO: Add more dynamic option handling
 while getopts a: flag
 do
     case "${flag}" in
@@ -13,6 +14,7 @@ do
     esac
 done
 
+# TODO: Better target handling
 case "${arch}" in
     "arm") TARGET="arm-eabi" ;;
     "arm64") TARGET="aarch64-elf" ;;
