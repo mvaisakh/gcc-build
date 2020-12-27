@@ -72,6 +72,7 @@ build_gcc () {
                      --disable-shared \
                      --disable-docs \
                      --enable-default-ssp \
+                     --enable-threads=posix \
                      --enable-languages=c,c++ \
                      --with-pkgversion="Eva GCC" \
                      --with-newlib \
