@@ -26,15 +26,14 @@ jobs:
       run: |
         alias gcc=gcc-10
         alias g++=g++-10
-        gcc -v 2>&1 | tee /tmp/gcc-version
         git config --global user.name "${GITHUB_USER}"
         git config --global user.email "${GITHUB_EMAIL}"
         git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/gcc-arm ../gcc-arm -b gcc-master
         ./build-gcc.sh -a arm
         cd ../gcc-arm
-        git init
+        ./bin/arm-eabi-gcc -v 2>&1 | tee /tmp/gcc-arm-version
         git add . -f
-        git commit -as -m "Import ARM GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Using: $(/bin/cat /tmp/gcc-version)"
+        git commit -as -m "Import ARM GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-arm-version)"
         git gc
         git push origin gcc-master
       env:
