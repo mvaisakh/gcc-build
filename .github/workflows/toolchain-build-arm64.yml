@@ -29,6 +29,7 @@ jobs:
         git config --global user.name "${GITHUB_USER}"
         git config --global user.email "${GITHUB_EMAIL}"
         git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc ../gcc-arm64 -b gcc-master
+        chmod a+x build-*.sh
         ./build-gcc.sh -a arm64
         sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
         ./build-lld.sh -a arm64
