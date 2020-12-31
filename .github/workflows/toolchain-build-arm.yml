@@ -1,4 +1,4 @@
-name: Toolchain Build
+name: ARM GCC Build
 
 on:
   push:
