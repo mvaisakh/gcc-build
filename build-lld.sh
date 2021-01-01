@@ -70,7 +70,14 @@ build_lld () {
                          -DLLVM_BUILD_RUNTIME=Off \
                          -DLLVM_INCLUDE_TESTS=Off \
                          -DLLVM_INCLUDE_EXAMPLES=Off \
+                         -DLLVM_INCLUDE_BENCHMARKS=Off \
+                         -DLLVM_ENABLE_MODULES=Off \
                          -DLLVM_ENABLE_BACKTRACES=Off \
+                         -DLLVM_PARALLEL_COMPILE_JOBS=8 \
+                         -DLLVM_PARALLEL_LINK_JOBS=4 \
+                         -DBUILD_SHARED_LIBS=Off \
+                         -DLLVM_INSTALL_TOOLCHAIN_ONLY=On \
+                         -DLLVM_ENABLE_PIC=False \
                          ../llvm
     ninja
     ninja install
