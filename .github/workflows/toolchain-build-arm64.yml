@@ -29,6 +29,7 @@ jobs:
         git config --global user.name "${GITHUB_USER}"
         git config --global user.email "${GITHUB_EMAIL}"
         git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc ../gcc-arm64 -b gcc-master
+        rm -rf ../gcc-arm64/*
         ./build-gcc.sh -a arm64
         cd ../gcc-arm64
         ./bin/aarch64-elf-gcc -v 2>&1 | tee /tmp/gcc-version
