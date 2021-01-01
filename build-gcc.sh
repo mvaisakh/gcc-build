@@ -47,7 +47,7 @@ build_binutils () {
                           --disable-gdb \
                           --enable-gold \
                           --with-pkgversion="Custom BinUtils"
-    make CFLAGS="-flto -O2 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O2 -pipe -ffunction-sections -fdata-sections" -j8
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j8
     make install -j8
     cd ../
 }
@@ -78,8 +78,8 @@ build_gcc () {
                      --with-gnu-as \
                      --with-gnu-ld \
                      --with-sysroot
-    make CFLAGS="-flto -O2 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O2 -pipe -ffunction-sections -fdata-sections" all-gcc -j8
-    make CFLAGS="-flto -O2 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O2 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j8
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j8
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j8
     make install-gcc -j8
     make install-target-libgcc -j8
 }
