@@ -1,4 +1,4 @@
-# ARM64/ARM GCC Cross Compiler Toolchain Build Script
+# GCC Cross Compiler Toolchain Build Script
 
 ![ARM GCC Build](https://github.com/mvaisakh/gcc-build/workflows/ARM%20GCC%20Build/badge.svg) ![ARM64 GCC Build](https://github.com/mvaisakh/gcc-build/workflows/ARM64%20GCC%20Build/badge.svg)
 
@@ -40,7 +40,7 @@ git clone https://github.com/mvaisakh/gcc-build.git gcc-build
 ```bash
 ./build-gcc.sh -a <architechture>
 ```
-> Only supported options are **arm** and **arm64** for now.
+> Only supported options are **arm**, **arm64** and **x86 (compiles for x86_64 only)** for now.
 
 > NOTE: The script is very bare minimum and it isn't very dynamic like the other GCC build scripts out there. If you want to contribute, fork this repo and make a pull request.
 
@@ -55,6 +55,7 @@ git clone https://github.com/mvaisakh/gcc-build.git gcc-build
 GCC Cross Compiler Builds are automated, built biweekly on Sundays & Thursdays at 00:00 GMT+5:30 (IST) and pushed to:
 * **[ARM64](https://github.com/mvaisakh/gcc-arm64)**
 * **[ARM32](https://github.com/mvaisakh/gcc-arm)**
+* **[X86_64](https://github.com/mvaisakh/gcc-x86)**
 
 ## Contributing to this repo
 

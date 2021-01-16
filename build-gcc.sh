@@ -18,6 +18,7 @@ done
 case "${arch}" in
     "arm") TARGET="arm-eabi" ;;
     "arm64") TARGET="aarch64-elf" ;;
+    "x86") TARGET="x86_64-elf" ;;
 esac
 
 export WORK_DIR="$PWD"
