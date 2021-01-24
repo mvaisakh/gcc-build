@@ -48,8 +48,8 @@ build_binutils () {
                           --disable-gdb \
                           --enable-gold \
                           --with-pkgversion="Custom BinUtils"
-    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j8
-    make install -j8
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j${nproc --all}
+    make install -j${nproc --all}
     cd ../
 }
 
@@ -79,10 +79,10 @@ build_gcc () {
                      --with-gnu-as \
                      --with-gnu-ld \
                      --with-sysroot
-    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j8
-    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j8
-    make install-gcc -j8
-    make install-target-libgcc -j8
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j${nproc --all}
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j${nproc --all}
+    make install-gcc -j${nproc --all}
+    make install-target-libgcc -j${nproc --all}
 }
 
 download_resources
