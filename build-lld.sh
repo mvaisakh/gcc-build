@@ -19,16 +19,19 @@ done
 case "${arch}" in
     "arm") ARCH_CLANG="ARM";;
     "arm64") ARCH_CLANG="AArch64";;
+    "x86") ARCH_CLANG="x86-64";;
 esac
 
 case "${ARCH_CLANG}" in
     "ARM") TARGET_CLANG="arm-linux-gnueabi";;
     "AArch64") TARGET_CLANG="aarch64-linux-gnu";;
+    "x86-64") TARGET_CLANG="x86_64-linux-gnu";;
 esac
 
 case "${ARCH_CLANG}" in
     "ARM") TARGET_GCC="arm-eabi";;
     "AArch64") TARGET_GCC="aarch64-elf";;
+    "x86-64") TARGET_GCC="x86_64-elf";;
 esac
 
 # Let's keep this as is

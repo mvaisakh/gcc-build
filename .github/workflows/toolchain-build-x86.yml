@@ -31,10 +31,13 @@ jobs:
         git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/gcc-x86 ../gcc-x86 -b gcc-master
         rm -rf ../gcc-x86/*
         ./build-gcc.sh -a x86
+        sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+        ./build-lld.sh -a x86
         cd ../gcc-x86
         ./bin/x86_64-elf-gcc -v 2>&1 | tee /tmp/gcc-version
+        ./bin/x86_64-elf-ld.lld -v 2>&1 | tee /tmp/lld-version
         git add . -f
-        git commit -as -m "Import x86_64 GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-version)"
+        git commit -as -m "Import x86_64 GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-version)" -m "LLD: $(/bin/cat /tmp/lld-version)"
         git gc
         git push origin gcc-master
       env:
