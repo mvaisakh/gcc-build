@@ -63,7 +63,7 @@ build_gcc () {
     cd build-gcc
     ../gcc/configure --target=$TARGET \
                      --prefix="$PREFIX" \
-                     --enable-decimal-float \
+                     --disable-decimal-float \
                      --disable-libffi \
                      --disable-libgomp \
                      --disable-libmudflap \
