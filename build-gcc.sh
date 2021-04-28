@@ -31,6 +31,7 @@ download_resources () {
     echo "Downloading Pre-requisites"
     git clone git://sourceware.org/git/binutils-gdb.git -b master binutils --depth=1
     git clone https://git.linaro.org/toolchain/gcc.git -b master gcc --depth=1
+    hg clone https://gmplib.org/repo/gmp/ gmp
     cd ${WORK_DIR}
 }
 
@@ -48,6 +49,18 @@ build_binutils () {
                           --disable-gdb \
                           --enable-gold \
                           --with-pkgversion="Custom BinUtils"
+    make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j$(nproc --all)
+    make install -j$(nproc --all)
+    cd ../
+}
+
+build_gmp () {
+    cd ${WORK_DIR}
+    echo "Building GMP"
+    mkdir build-gmp
+    cd build-gmp
+    ../gmp/configure --prefix="$PREFIX" \
+                     --disable-shared
     make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j$(nproc --all)
     make install -j$(nproc --all)
     cd ../
@@ -78,6 +91,7 @@ build_gcc () {
                      --with-newlib \
                      --with-gnu-as \
                      --with-gnu-ld \
+                     --with-gmp="$PREFIX" \
                      --with-sysroot
     make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(nproc --all)
     make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(nproc --all)
@@ -87,4 +101,5 @@ build_gcc () {
 
 download_resources
 build_binutils
+build_gmp
 build_gcc
