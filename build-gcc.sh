@@ -92,6 +92,7 @@ build_gcc () {
                      --with-gnu-as \
                      --with-gnu-ld \
                      --with-gmp="$PREFIX" \
+                     --with-gmp-build \
                      --with-sysroot
     make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(nproc --all)
     make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(nproc --all)
@@ -100,6 +101,6 @@ build_gcc () {
 }
 
 download_resources
-build_binutils
 build_gmp
+build_binutils
 build_gcc
