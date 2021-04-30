@@ -1,6 +1,6 @@
 # GCC Cross Compiler Toolchain Build Script
 
-![ARM GCC Build](https://github.com/mvaisakh/gcc-build/workflows/ARM%20GCC%20Build/badge.svg) ![ARM64 GCC Build](https://github.com/mvaisakh/gcc-build/workflows/ARM64%20GCC%20Build/badge.svg) ![x86_64 GCC Build](https://github.com/mvaisakh/gcc-build/workflows/x86_64%20GCC%20Build/badge.svg)
+![ARM GCC Build](https://github.com/mvaisakh/gcc-build/workflows/ARM%20GCC%20Build/badge.svg) ![ARM64 GCC Build](https://github.com/mvaisakh/gcc-build/workflows/ARM64%20GCC%20Build/badge.svg) 
 
 This is a build script intended for compiling GCC from source on Linux Distributions for aarch64 bare metal development, focusing primarily on Android Kernels.
 Everything is compiled from straight from the master branch of GCC git repository.
