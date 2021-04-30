@@ -25,7 +25,7 @@ Everything is compiled from straight from the master branch of GCC git repositor
 * **If you are on Arch Linux:**
 
     ```bash
-    sudo pacman -S base-devel
+    sudo pacman -S base-devel clang cmake git libc++ lld lldb ninja
     ```
 
 * - [ ] **TODO:** Add other distro setup Wiki
