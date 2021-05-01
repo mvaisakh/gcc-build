@@ -47,7 +47,7 @@ build_binutils () {
                           --disable-werror \
                           --disable-gdb \
                           --enable-gold \
-                          --with-pkgversion="Custom BinUtils"
+                          --with-pkgversion="Eva BinUtils"
     make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j$(nproc --all)
     make install -j$(nproc --all)
     cd ../
