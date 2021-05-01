@@ -74,7 +74,7 @@ build_gcc () {
                      --disable-docs \
                      --enable-default-ssp \
                      --enable-languages=c,c++ \
-                     --with-pkgversion="Eva GCC (69 Member SE)" \
+                     --with-pkgversion="Eva GCC" \
                      --with-newlib \
                      --with-gnu-as \
                      --with-gnu-ld \
