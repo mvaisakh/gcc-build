@@ -13,7 +13,7 @@ insert_final_newline = true
 # for shfmt
 [*.{bash,sh}]
 indent_style = space
-indent_size = 4
+indent_size = 2
 shell_variant = bash
 switch_case_indent = true
 space_redirects = true
