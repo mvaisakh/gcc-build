@@ -80,8 +80,8 @@ build_gcc() {
 		--with-sysroot
 	make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(nproc --all)
 	make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(nproc --all)
-	make install-gcc -j$(($(nproc -all) + 2))
-	make install-target-libgcc -j$(($(nproc -all) + 2))
+	make install-gcc -j$(($(nproc --all) + 2))
+	make install-target-libgcc -j$(($(nproc --all) + 2))
 
 }
 
