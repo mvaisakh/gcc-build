@@ -77,7 +77,9 @@ build_gcc() {
     --with-newlib \
     --with-gnu-as \
     --with-gnu-ld \
-    --with-sysroot
+    --with-sysroot \
+    --with-zstd
+
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(($(nproc --all) + 2))
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(($(nproc --all) + 2))
   make install-gcc -j$(($(nproc --all) + 2))
