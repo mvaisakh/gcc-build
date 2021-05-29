@@ -95,7 +95,7 @@ build_gcc() {
     --with-gnu-ld \
     --with-sysroot \
     --with-zstd="$PREFIX" \
-    --with-zstd=$PREFIX/lib
+    --with-zstd-lib=$PREFIX/lib
 
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(($(nproc --all) + 2))
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(($(nproc --all) + 2))
