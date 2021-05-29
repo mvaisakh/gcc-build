@@ -45,3 +45,9 @@ jobs:
         GITHUB_EMAIL: ${{ secrets.EMAIL }}
         GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
         GITHUB_USER: ${{ secrets.USERNAME }}
+    - uses: yanzay/notify-telegram@v0.1.0
+      if: always()
+      with:
+        chat: ${{ secrets.CHAT }} # user id or channel name secret
+        token: ${{ secrets.TELEGRAM_BOT_TOKEN }} # token secret
+        status: ${{ job.status }} # do not modify this line
