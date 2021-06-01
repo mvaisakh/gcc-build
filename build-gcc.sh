@@ -30,23 +30,7 @@ download_resources() {
   echo "Downloading Pre-requisites"
   git clone git://sourceware.org/git/binutils-gdb.git -b master binutils --depth=1
   git clone https://git.linaro.org/toolchain/gcc.git -b master gcc --depth=1
-  git clone https://github.com/facebook/zstd -b dev zstd --depth=1
   cd ${WORK_DIR}
-}
-
-build_zstd() {
-  cd ${WORK_DIR}
-  echo "Building zstd"
-  mkdir build-zstd
-  cd build-zstd
-  cmake ../zstd/build/cmake/ -DZSTD_BUILD_SHARED=OFF \
-    -DZSTD_LZ4_SUPPORT=ON \
-    -DZSTD_LZMA_SUPPORT=ON \
-    -DZSTD_ZLIB_SUPPORT=ON \
-    -DCMAKE_INSTALL_PREFIX:PATH="$PREFIX"
-  make CFLAGS="-flto -O3" CXXFLAGS="-flto -O3" -j$(($(nproc --all) + 2))
-  make install -j$(($(nproc --all) + 2))
-  cd ../
 }
 
 build_binutils() {
@@ -93,9 +77,7 @@ build_gcc() {
     --with-newlib \
     --with-gnu-as \
     --with-gnu-ld \
-    --with-sysroot \
-    --with-zstd="$PREFIX" \
-    --with-zstd-lib=$PREFIX/lib
+    --with-sysroot
 
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(($(nproc --all) + 2))
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(($(nproc --all) + 2))
@@ -105,6 +87,5 @@ build_gcc() {
 }
 
 download_resources
-build_zstd
 build_binutils
 build_gcc
