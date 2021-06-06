@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: GPL-3.0
 # Author: Vaisakh Murali
 
-echo "******************************"
-echo "* Building Bleeding Edge GCC *"
-echo "******************************"
+echo "*****************************************"
+echo "* Building Bare-Metal Bleeding Edge GCC *"
+echo "*****************************************"
 
 # TODO: Add more dynamic option handling
 while getopts a: flag; do
@@ -24,13 +24,19 @@ export WORK_DIR="$PWD"
 export PREFIX="$PWD/../gcc-${arch}"
 export PATH="$PREFIX/bin:$PATH"
 
-echo "Building Bare Metal Toolchain for ${arch} with ${TARGET} as target"
+echo "||                                                                    ||"
+echo "|| Building Bare Metal Toolchain for ${arch} with ${TARGET} as target ||"
+echo "||                                                                    ||"
 
 download_resources() {
   echo "Downloading Pre-requisites"
+  echo "Cloning binutils"
   git clone git://sourceware.org/git/binutils-gdb.git -b master binutils --depth=1
+  echo "Cloned binutils!"
+  echo "Cloning GCC"
   git clone git://gcc.gnu.org/git/gcc.git -b master gcc --depth=1
   cd ${WORK_DIR}
+  echo "Downloaded prerequisites!"
 }
 
 build_binutils() {
@@ -50,6 +56,7 @@ build_binutils() {
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j$(($(nproc --all) + 2))
   make install -j$(($(nproc --all) + 2))
   cd ../
+  echo "Built Binutils, proceeding to next step...."
 }
 
 build_gcc() {
@@ -83,7 +90,7 @@ build_gcc() {
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(($(nproc --all) + 2))
   make install-gcc -j$(($(nproc --all) + 2))
   make install-target-libgcc -j$(($(nproc --all) + 2))
-
+  echo "Built GCC!"
 }
 
 download_resources
