@@ -29,7 +29,7 @@ echo "Building Bare Metal Toolchain for ${arch} with ${TARGET} as target"
 download_resources() {
   echo "Downloading Pre-requisites"
   git clone git://sourceware.org/git/binutils-gdb.git -b master binutils --depth=1
-  git clone https://git.linaro.org/toolchain/gcc.git -b master gcc --depth=1
+  git clone git://gcc.gnu.org/git/gcc.git -b master gcc --depth=1
   cd ${WORK_DIR}
 }
 
