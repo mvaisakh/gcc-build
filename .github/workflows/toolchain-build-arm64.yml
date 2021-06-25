@@ -34,10 +34,11 @@ jobs:
         ./build-gcc.sh -a arm64
         sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
         ./build-lld.sh -a arm64
+        script_dir=$(pwd)
         cd ../gcc-arm64
         ./bin/aarch64-elf-gcc -v 2>&1 | tee /tmp/gcc-version
         ./bin/aarch64-elf-ld.lld -v 2>&1 | tee /tmp/lld-arm64-version
-        ./strip-binaries.sh
+        bash "$script_dir/strip-binaries.sh"
         git add . -f
         git commit -as -m "Import ARM64 GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-version)" -m "LLD: $(/bin/cat /tmp/lld-arm64-version)"
         git gc
