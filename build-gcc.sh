@@ -53,7 +53,7 @@ build_binutils() {
     --disable-gdb \
     --enable-gold \
     --with-pkgversion="Eva BinUtils"
-  make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j$(($(nproc --all) + 2))
+  make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j$($(nproc --all))
   make install -j$(($(nproc --all) + 2))
   cd ../
   echo "Built Binutils, proceeding to next step...."
