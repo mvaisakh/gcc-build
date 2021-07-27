@@ -29,9 +29,11 @@ jobs:
         chmod a+x build-*.sh
         ./build-gcc.sh -a arm
         ./build-lld.sh -a arm
+        script_dir=$(pwd)
         cd ../gcc-arm
         ./bin/arm-eabi-gcc -v 2>&1 | tee /tmp/gcc-arm-version
         ./bin/arm-eabi-ld.lld -v 2>&1 | tee /tmp/lld-arm-version
+        bash "$script_dir/strip-binaries.sh"
         git add . -f
         git commit -as -m "Import ARM GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-arm-version)" -m "LLD: $(/bin/cat /tmp/lld-arm-version)"
         git gc
