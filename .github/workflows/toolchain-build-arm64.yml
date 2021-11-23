@@ -31,6 +31,7 @@ jobs:
         git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc ../gcc-arm64 -b gcc-master
         rm -rf ../gcc-arm64/*
         chmod a+x build-*.sh
+        curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" -d chat_id="${CHAT_ID}" -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="<b>Starting ARM64 GCC Build</b>"
         ./build-gcc.sh -a arm64
         sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
         ./build-lld.sh -a arm64
@@ -47,6 +48,8 @@ jobs:
         GITHUB_EMAIL: ${{ secrets.EMAIL }}
         GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
         GITHUB_USER: ${{ secrets.USERNAME }}
+        BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT }}
     - uses: yanzay/notify-telegram@v0.1.0
       if: always()
       with:
