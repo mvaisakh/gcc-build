@@ -21,7 +21,7 @@ case "${arch}" in
 esac
 
 export WORK_DIR="$PWD"
-export PREFIX="$PWD/../gcc-${arch}"
+export PREFIX="$WORK_DIR/../gcc-${arch}"
 export PATH="$PREFIX/bin:$PATH"
 
 echo "||                                                                    ||"
