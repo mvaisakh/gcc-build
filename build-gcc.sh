@@ -64,6 +64,7 @@ build_gcc() {
   echo "Building GCC"
   cd gcc
   ./contrib/download_prerequisites
+  echo "Bleeding Edge" > gcc/DEV-PHASE
   cd ../
   mkdir build-gcc
   cd build-gcc
