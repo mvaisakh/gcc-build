@@ -82,6 +82,7 @@ build_gcc() {
     --disable-docs \
     --enable-default-ssp \
     --enable-languages=c,c++ \
+    --enable-threads=posix \
     --with-pkgversion="Eva GCC" \
     --with-newlib \
     --with-gnu-as \
