@@ -22,7 +22,7 @@ esac
 
 export WORK_DIR="$PWD"
 export PREFIX="$WORK_DIR/../gcc-${arch}"
-export PATH="$PREFIX/bin:$PATH"
+export PATH="$PREFIX/bin:/usr/bin/core_perl:$PATH"
 
 echo "||                                                                    ||"
 echo "|| Building Bare Metal Toolchain for ${arch} with ${TARGET} as target ||"
