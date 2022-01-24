@@ -87,6 +87,7 @@ build_gcc() {
     --with-newlib \
     --with-gnu-as \
     --with-gnu-ld \
+    --with-linker-hash-style=gnu \
     --with-sysroot
 
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(($(nproc --all) + 2))
