@@ -51,8 +51,7 @@ build_binutils() {
     --disable-docs \
     --disable-werror \
     --disable-gdb \
-    --enable-gold \
-    --with-pkgversion="Eva BinUtils"
+    --enable-gold
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j$(($(nproc --all) + 2))
   make install -j$(($(nproc --all) + 2))
   cd ../
@@ -69,26 +68,7 @@ build_gcc() {
   mkdir build-gcc
   cd build-gcc
   ../gcc/configure --target=$TARGET \
-    --prefix="$PREFIX" \
-    --disable-decimal-float \
-    --disable-gcov \
-    --disable-libffi \
-    --disable-libgomp \
-    --disable-libmudflap \
-    --disable-libquadmath \
-    --disable-libstdcxx-pch \
-    --disable-nls \
-    --disable-shared \
-    --disable-docs \
-    --enable-default-ssp \
-    --enable-languages=c,c++ \
-    --enable-threads=posix \
-    --with-pkgversion="Eva GCC" \
-    --with-newlib \
-    --with-gnu-as \
-    --with-gnu-ld \
-    --with-linker-hash-style=gnu \
-    --with-sysroot
+    --prefix="$PREFIX"
 
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(($(nproc --all) + 2))
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(($(nproc --all) + 2))
