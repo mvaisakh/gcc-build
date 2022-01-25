@@ -67,6 +67,12 @@ build_gcc() {
   cd ../
   mkdir build-gcc
   cd build-gcc
+  
+  # using -pipe causes spurious test-suite failures
+  # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=48565
+  CFLAGS=${CFLAGS/-pipe/}
+  CXXFLAGS=${CXXFLAGS/-pipe/}
+  
   ../gcc/configure --target=$TARGET \
     --prefix="$PREFIX" \
     --program-prefix=$TARGET- \
