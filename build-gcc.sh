@@ -61,9 +61,14 @@ build_binutils() {
 build_gcc() {
   cd ${WORK_DIR}
   echo "Building GCC"
+
   cd gcc
   ./contrib/download_prerequisites
   echo "Bleeding Edge" > gcc/DEV-PHASE
+  
+    # Do not run fixincludes
+  sed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
+  
   cd ../
   mkdir build-gcc
   cd build-gcc
