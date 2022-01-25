@@ -68,7 +68,24 @@ build_gcc() {
   mkdir build-gcc
   cd build-gcc
   ../gcc/configure --target=$TARGET \
-    --prefix="$PREFIX"
+    --prefix="$PREFIX" \
+    --program-prefix=$TARGET- \
+    --with-local-prefix=/usr/$TARGET \
+    --with-sysroot=/usr/$TARGET \
+    --with-build-sysroot=/usr/$TARGET \
+    --with-native-system-header-dir=/include \
+    --disable-nls --enable-default-pie \
+    --enable-languages=c,c++,fortran \
+    --enable-shared --enable-threads=posix \
+    --with-system-zlib --with-isl --enable-__cxa_atexit \
+    --disable-libunwind-exceptions --enable-clocale=gnu \
+    --disable-libstdcxx-pch --disable-libssp \
+    --enable-gnu-unique-object --enable-linker-build-id \
+    --enable-lto --enable-plugin --enable-install-libiberty \
+    --with-linker-hash-style=gnu --enable-gnu-indirect-function \
+    --disable-multilib --disable-werror \
+    --enable-checking=release
+
 
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(($(nproc --all) + 2))
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(($(nproc --all) + 2))
