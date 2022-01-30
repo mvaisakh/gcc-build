@@ -21,8 +21,8 @@ case "${arch}" in
 esac
 
 export WORK_DIR="$PWD"
-export PREFIX="$PWD/../gcc-${arch}"
-export PATH="$PREFIX/bin:$PATH"
+export PREFIX="$WORK_DIR/../gcc-${arch}"
+export PATH="$PREFIX/bin:/usr/bin/core_perl:$PATH"
 
 echo "||                                                                    ||"
 echo "|| Building Bare Metal Toolchain for ${arch} with ${TARGET} as target ||"
@@ -71,6 +71,7 @@ build_gcc() {
   ../gcc/configure --target=$TARGET \
     --prefix="$PREFIX" \
     --disable-decimal-float \
+    --disable-gcov \
     --disable-libffi \
     --disable-libgomp \
     --disable-libmudflap \
@@ -81,10 +82,12 @@ build_gcc() {
     --disable-docs \
     --enable-default-ssp \
     --enable-languages=c,c++ \
+    --enable-threads=posix \
     --with-pkgversion="Eva GCC" \
     --with-newlib \
     --with-gnu-as \
     --with-gnu-ld \
+    --with-linker-hash-style=gnu \
     --with-sysroot
 
   make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(($(nproc --all) + 2))
