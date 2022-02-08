@@ -45,6 +45,8 @@ build_binutils() {
   mkdir build-binutils
   cd build-binutils
   ../binutils/configure --target=$TARGET \
+    CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" \
+    CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" \
     --prefix="$PREFIX" \
     --with-sysroot \
     --disable-nls \
@@ -53,7 +55,7 @@ build_binutils() {
     --disable-gdb \
     --enable-gold \
     --with-pkgversion="Eva BinUtils"
-  make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" -j$(($(nproc --all) + 2))
+  make -j$(($(nproc --all) + 2))
   make install -j$(($(nproc --all) + 2))
   cd ../
   echo "Built Binutils, proceeding to next step...."
@@ -69,6 +71,8 @@ build_gcc() {
   mkdir build-gcc
   cd build-gcc
   ../gcc/configure --target=$TARGET \
+    CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" \
+    CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" \
     --prefix="$PREFIX" \
     --disable-decimal-float \
     --disable-gcov \
@@ -90,8 +94,8 @@ build_gcc() {
     --with-linker-hash-style=gnu \
     --with-sysroot
 
-  make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-gcc -j$(($(nproc --all) + 2))
-  make CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" all-target-libgcc -j$(($(nproc --all) + 2))
+  make all-gcc -j$(($(nproc --all) + 2))
+  make all-target-libgcc -j$(($(nproc --all) + 2))
   make install-gcc -j$(($(nproc --all) + 2))
   make install-target-libgcc -j$(($(nproc --all) + 2))
   echo "Built GCC!"
