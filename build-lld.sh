@@ -79,6 +79,8 @@ build_lld() {
     -DLLVM_PARALLEL_LINK_JOBS=4 \
     -DBUILD_SHARED_LIBS=Off \
     -DLLVM_INSTALL_TOOLCHAIN_ONLY=On \
+    -DCMAKE_C_FLAGS="-O3" \
+    -DCMAKE_CXX_FLAGS="-O3" \
     -DLLVM_ENABLE_PIC=False \
     ../llvm
   ninja
