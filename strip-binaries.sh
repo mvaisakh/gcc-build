@@ -10,19 +10,19 @@ curl -LSsO "$PROTON/$A32S" && chmod +x "$CUR_DIR/$A32S" && A32_STRIP="$CUR_DIR/$
 
 find "$CUR_DIR" -type f -exec file {} \; > .file-idx
 
-grep "x86" .file-idx \
-    | grep "not strip" | grep -v "relocatable" \
-    | tr ':' ' ' | awk '{print $1}' \
-    | while read -r file; do $X86_STRIP "$file"; done
+grep "x86" .file-idx |
+  grep "not strip" | grep -v "relocatable" |
+  tr ':' ' ' | awk '{print $1}' |
+  while read -r file; do $X86_STRIP "$file"; done
 
-grep "ARM" .file-idx | grep "aarch64" \
-    | grep "not strip" | grep -v "relocatable" \
-    | tr ':' ' ' | awk '{print $1}' \
-    | while read -r file; do $A64_STRIP "$file"; done
+grep "ARM" .file-idx | grep "aarch64" |
+  grep "not strip" | grep -v "relocatable" |
+  tr ':' ' ' | awk '{print $1}' |
+  while read -r file; do $A64_STRIP "$file"; done
 
-grep "ARM" .file-idx | grep "32.bit" \
-    | grep "not strip" | grep -v "relocatable" \
-    | tr ':' ' ' | awk '{print $1}' \
-    | while read -r file; do $A32_STRIP "$file"; done
+grep "ARM" .file-idx | grep "32.bit" |
+  grep "not strip" | grep -v "relocatable" |
+  tr ':' ' ' | awk '{print $1}' |
+  while read -r file; do $A32_STRIP "$file"; done
 
 rm "$CUR_DIR/strip" "$CUR_DIR/$A64S" "$CUR_DIR/$A32S" ".file-idx"
