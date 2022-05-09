@@ -1,0 +1,5 @@
+binutils/
+build-binutils/
+build-gcc/
+gcc/
+stdin.info
