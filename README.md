@@ -27,6 +27,13 @@ This repository contains the script needed to compile bare metal GCC for various
     sudo pacman -S base-devel clang cmake git libc++ lld lldb ninja
     ```
 
+* **Fedora**
+
+    ```bash
+    sudo dnf install groupinstall "Development tools"
+    sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ 
+    ```
+
 ## Usage
 
 Running this script is quite simple. We start by cloning this repository:
