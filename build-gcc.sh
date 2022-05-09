@@ -17,6 +17,7 @@ done
 case "${arch}" in
   "arm") TARGET="arm-eabi" ;;
   "arm64") TARGET="aarch64-elf" ;;
+  "arm64gnu") TARGET="aarch64-linux-gnu" ;;
   "x86") TARGET="x86_64-elf" ;;
 esac
 
