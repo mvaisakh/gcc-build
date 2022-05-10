@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: GPL-3.0
 # Author: Vaisakh Murali
+set -e
 
 echo "*****************************************"
 echo "* Building Bare-Metal Bleeding Edge GCC *"
