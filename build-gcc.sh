@@ -46,8 +46,8 @@ build_binutils() {
   mkdir build-binutils
   cd build-binutils
   ../binutils/configure --target=$TARGET \
-    CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" \
-    CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" \
+    CFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
+    CXXFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
     --prefix="$PREFIX" \
     --with-sysroot \
     --disable-nls \
@@ -72,8 +72,8 @@ build_gcc() {
   mkdir build-gcc
   cd build-gcc
   ../gcc/configure --target=$TARGET \
-    CFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" \
-    CXXFLAGS="-flto -O3 -pipe -ffunction-sections -fdata-sections" \
+    CFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
+    CXXFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
     --prefix="$PREFIX" \
     --disable-decimal-float \
     --disable-gcov \
