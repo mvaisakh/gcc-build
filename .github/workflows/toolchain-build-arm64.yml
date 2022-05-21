@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup
       run: |
-        sudo dnf install groupinstall "Development tools"
+        sudo dnf groupinstall "Development tools"
         sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ 
     - name: Set build date
       id: get-date

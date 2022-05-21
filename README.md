@@ -30,7 +30,7 @@ This repository contains the script needed to compile bare metal GCC for various
 * **Fedora**
 
     ```bash
-    sudo dnf install groupinstall "Development tools"
+    sudo dnf groupinstall "Development tools"
     sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ 
     ```
 
