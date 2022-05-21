@@ -21,8 +21,7 @@ jobs:
     - name: Set build date
       id: get-date
       run: |
-        sudo timedatectl set-timezone Asia/Kolkata
-        echo ::set-output name=date::$(/bin/date -u "+%Y%m%d")
+        sudo ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
     - name: Build & Push
       run: |
         git config --global user.name "${GITHUB_USER}"
@@ -39,7 +38,7 @@ jobs:
         ./bin/aarch64-elf-ld.lld -v 2>&1 | tee /tmp/lld-arm64-version
         bash "$script_dir/strip-binaries.sh"
         git add . -f
-        git commit -as -m "Import ARM64 GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-version)" -m "LLD: $(/bin/cat /tmp/lld-arm64-version)"
+        git commit -as -m "Import ARM64 GCC $(/bin/date -u "+%Y%m%d")" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-version)" -m "LLD: $(/bin/cat /tmp/lld-arm64-version)"
         git gc
         git push origin gcc-master -f
       env:
