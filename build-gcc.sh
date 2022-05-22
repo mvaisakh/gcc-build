@@ -50,6 +50,7 @@ build_binutils() {
     CXXFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
     --disable-docs \
     --disable-gdb \
+    --disable-mutlilib \
     --disable-nls \
     --disable-werror \
     --enable-gold \
@@ -82,6 +83,7 @@ build_gcc() {
     --disable-libmudflap \
     --disable-libquadmath \
     --disable-libstdcxx-pch \
+    --disable-mutlilib \
     --disable-nls \
     --disable-shared \
     --enable-default-ssp \
