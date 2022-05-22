@@ -55,7 +55,7 @@ build_binutils() {
     --disable-werror \
     --enable-gold \
     --prefix="$PREFIX" \
-    --with-pkgversion="Eva BinUtils" \
+    --with-pkgversion="Eva Binutils" \
     --with-sysroot
   make -j$(($(nproc --all) + 2))
   make install -j$(($(nproc --all) + 2))
