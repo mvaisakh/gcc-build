@@ -49,14 +49,14 @@ build_binutils() {
   ../binutils/configure --target=$TARGET \
     CFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
     CXXFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
-    --prefix="$PREFIX" \
-    --with-sysroot \
-    --disable-nls \
     --disable-docs \
-    --disable-werror \
     --disable-gdb \
+    --disable-nls \
+    --disable-werror \
     --enable-gold \
-    --with-pkgversion="Eva BinUtils"
+    --prefix="$PREFIX" \
+    --with-pkgversion="Eva BinUtils" \
+    --with-sysroot
   make -j$(($(nproc --all) + 2))
   make install -j$(($(nproc --all) + 2))
   cd ../
@@ -75,8 +75,8 @@ build_gcc() {
   ../gcc/configure --target=$TARGET \
     CFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
     CXXFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
-    --prefix="$PREFIX" \
     --disable-decimal-float \
+    --disable-docs \
     --disable-gcov \
     --disable-libffi \
     --disable-libgomp \
@@ -85,17 +85,17 @@ build_gcc() {
     --disable-libstdcxx-pch \
     --disable-nls \
     --disable-shared \
-    --disable-docs \
     --enable-default-ssp \
     --enable-languages=c,c++ \
     --enable-threads=posix \
-    --with-pkgversion="Eva GCC" \
-    --with-newlib \
+    --prefix="$PREFIX" \
     --with-gnu-as \
     --with-gnu-ld \
+    --with-headers="/usr/include" \
     --with-linker-hash-style=gnu \
-    --with-sysroot \
-    --with-headers="/usr/include"
+    --with-newlib \
+    --with-pkgversion="Eva GCC" \
+    --with-sysroot
 
   make all-gcc -j$(($(nproc --all) + 2))
   make all-target-libgcc -j$(($(nproc --all) + 2))
