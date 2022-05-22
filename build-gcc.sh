@@ -94,7 +94,8 @@ build_gcc() {
     --with-gnu-as \
     --with-gnu-ld \
     --with-linker-hash-style=gnu \
-    --with-sysroot
+    --with-sysroot \
+    --with-headers="/usr/include"
 
   make all-gcc -j$(($(nproc --all) + 2))
   make all-target-libgcc -j$(($(nproc --all) + 2))
