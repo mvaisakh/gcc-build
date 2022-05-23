@@ -88,6 +88,7 @@ build_gcc() {
     --enable-languages=c,c++ \
     --enable-threads=posix \
     --prefix="$PREFIX" \
+    --with-glibc-version=2.27 \
     --with-gnu-as \
     --with-gnu-ld \
     --with-headers="/usr/include" \
