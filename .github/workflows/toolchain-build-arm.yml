@@ -12,7 +12,7 @@ jobs:
       image: ghcr.io/neutron-toolchains/docker-image:arch-neutron
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set build date
       id: get-date
       run: |
