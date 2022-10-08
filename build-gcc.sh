@@ -11,6 +11,7 @@ echo "*****************************************"
 while getopts a: flag; do
   case "${flag}" in
     a) arch=${OPTARG} ;;
+    *) echo "Invalid argument passed" && exit 1 ;;
   esac
 done
 
@@ -37,12 +38,12 @@ download_resources() {
   echo "Cloned binutils!"
   echo "Cloning GCC"
   git clone git://gcc.gnu.org/git/gcc.git -b master gcc --depth=1
-  cd ${WORK_DIR}
+  cd "${WORK_DIR}"
   echo "Downloaded prerequisites!"
 }
 
 build_binutils() {
-  cd ${WORK_DIR}
+  cd "${WORK_DIR}"
   echo "Building Binutils"
   mkdir build-binutils
   cd build-binutils
@@ -64,7 +65,7 @@ build_binutils() {
 }
 
 build_gcc() {
-  cd ${WORK_DIR}
+  cd "${WORK_DIR}"
   echo "Building GCC"
   cd gcc
   ./contrib/download_prerequisites
