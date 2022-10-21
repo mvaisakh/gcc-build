@@ -5,6 +5,13 @@ on:
   schedule:
     - cron: '0 0 * * 0,4'
 
+env:
+      GITHUB_EMAIL: ${{ secrets.EMAIL }}
+      GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+      GITHUB_USER: ${{ secrets.USERNAME }}
+      BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      CHAT_ID: ${{ secrets.CHAT }}
+
 jobs:
   build-arm64-tc:
     runs-on: ubuntu-latest
@@ -40,12 +47,6 @@ jobs:
         git add . -f
         git commit -as -m "Import ARM64 GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-version)" -m "LLD: $(/bin/cat /tmp/lld-arm64-version)"
         git push origin gcc-master -f
-      env:
-        GITHUB_EMAIL: ${{ secrets.EMAIL }}
-        GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
-        GITHUB_USER: ${{ secrets.USERNAME }}
-        BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        CHAT_ID: ${{ secrets.CHAT }}
     - uses: yanzay/notify-telegram@v0.1.0
       if: always()
       with:
@@ -87,12 +88,6 @@ jobs:
         git add . -f
         git commit -as -m "Import ARM GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-arm-version)" -m "LLD: $(/bin/cat /tmp/lld-arm-version)"
         git push origin gcc-master -f
-      env:
-        GITHUB_EMAIL: ${{ secrets.EMAIL }}
-        GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
-        GITHUB_USER: ${{ secrets.USERNAME }}
-        BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        CHAT_ID: ${{ secrets.CHAT }}
     - uses: yanzay/notify-telegram@v0.1.0
       if: always()
       with:
