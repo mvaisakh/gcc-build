@@ -58,8 +58,8 @@ build_binutils() {
     --prefix="$PREFIX" \
     --with-pkgversion="Eva Binutils" \
     --with-sysroot
-  make -j$(($(nproc --all) + 2))
-  make install -j$(($(nproc --all) + 2))
+  make -j$(nproc --all)
+  make install -j$(nproc --all)
   cd ../
   echo "Built Binutils, proceeding to next step...."
 }
@@ -98,10 +98,10 @@ build_gcc() {
     --with-pkgversion="Eva GCC" \
     --with-sysroot
 
-  make all-gcc -j$(($(nproc --all) + 2))
-  make all-target-libgcc -j$(($(nproc --all) + 2))
-  make install-gcc -j$(($(nproc --all) + 2))
-  make install-target-libgcc -j$(($(nproc --all) + 2))
+  make all-gcc -j$(nproc --all)
+  make all-target-libgcc -j$(nproc --all)
+  make install-gcc -j$(nproc --all)
+  make install-target-libgcc -j$(nproc --all)
   echo "Built GCC!"
 }
 
