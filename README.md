@@ -9,7 +9,6 @@ This repository contains the script needed to compile bare metal GCC for various
 **Below are the packages you'll need**
 
 * **Ubuntu or other Debian based distros**
-    >**Note: On Ubuntu 20.04, the default GCC version is gcc 9.3.x which (in my test cases) brought in a lot of unneeded regressions. This was however fixed by compiling the toolchain itself with GCC 10**
 
     To install and set GCC 10 as the default compiler, you need to:
 
