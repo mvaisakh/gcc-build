@@ -70,8 +70,8 @@ build_lld() {
     -DCMAKE_CXX_FLAGS="-O3" \
     -DLLVM_ENABLE_PIC=False \
     ../llvm
-  ninja
-  ninja install
+  ninja -j$(nproc --all)
+  ninja -j$(nproc --all) install
   # Create proper symlinks
   cd "${INSTALL_LLD_DIR}"/bin
   ln -s lld ${TARGET_GCC}-ld.lld
