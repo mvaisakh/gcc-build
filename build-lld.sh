@@ -13,7 +13,7 @@ while getopts a: flag; do
     case "${OPTARG}" in
       "arm") ARCH_CLANG="ARM" && TARGET_CLANG="arm-linux-gnueabi" && TARGET_GCC="arm-eabi" ;;
       "arm64") ARCH_CLANG="AArch64" && TARGET_CLANG="aarch64-linux-gnu" && TARGET_GCC="aarch64-elf" ;;
-      "x86") ARCH_CLANG="x86-64" && TARGET_CLANG="x86_64-linux-gnu" && TARGET_GCC="x86_64-elf" ;;
+      "x86") ARCH_CLANG="X86" && TARGET_CLANG="x86_64-linux-gnu" && TARGET_GCC="x86_64-elf" ;;
       *) echo "Invalid architecture passed: $OPTARG" && exit 1 ;;
     esac
   else
@@ -46,10 +46,9 @@ build_lld() {
   export INSTALL_LLD_DIR="../../../gcc-${arch}"
   cmake -G "Ninja" \
     -DLLVM_ENABLE_PROJECTS=lld \
-    -DCMAKE_CROSSCOMPILING=True \
     -DCMAKE_INSTALL_PREFIX="$INSTALL_LLD_DIR" \
-    -DLLVM_DEFAULT_TARGET_TRIPLE=$TARGET_CLANG \
-    -DLLVM_TARGET_ARCH=$ARCH_CLANG \
+    -DLLVM_DEFAULT_TARGET_TRIPLE="$TARGET_CLANG" \
+    -DLLVM_TARGET_ARCH="X86" \
     -DLLVM_TARGETS_TO_BUILD=$ARCH_CLANG \
     -DCMAKE_CXX_COMPILER="$(which clang++)" \
     -DCMAKE_C_COMPILER="$(which clang)" \
@@ -71,8 +70,8 @@ build_lld() {
     -DCMAKE_CXX_FLAGS="-O3" \
     -DLLVM_ENABLE_PIC=False \
     ../llvm
-  ninja
-  ninja install
+  ninja -j$(nproc --all)
+  ninja -j$(nproc --all) install
   # Create proper symlinks
   cd "${INSTALL_LLD_DIR}"/bin
   ln -s lld ${TARGET_GCC}-ld.lld
