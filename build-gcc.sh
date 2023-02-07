@@ -26,6 +26,7 @@ esac
 export WORK_DIR="$PWD"
 export PREFIX="$WORK_DIR/../gcc-${arch}"
 export PATH="$PREFIX/bin:/usr/bin/core_perl:$PATH"
+export OPT_FLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections"
 
 echo "||                                                                    ||"
 echo "|| Building Bare Metal Toolchain for ${arch} with ${TARGET} as target ||"
@@ -47,9 +48,8 @@ build_binutils() {
   echo "Building Binutils"
   mkdir build-binutils
   cd build-binutils
+  env CFLAGS="$OPT_FLAGS" CXXFLAGS="$OPT_FLAGS" \
   ../binutils/configure --target=$TARGET \
-    CFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
-    CXXFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
     --disable-docs \
     --disable-gdb \
     --disable-nls \
@@ -73,9 +73,8 @@ build_gcc() {
   cd ../
   mkdir build-gcc
   cd build-gcc
+  env CFLAGS="$OPT_FLAGS" CXXFLAGS="$OPT_FLAGS" \
   ../gcc/configure --target=$TARGET \
-    CFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
-    CXXFLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections" \
     --disable-decimal-float \
     --disable-docs \
     --disable-gcov \
