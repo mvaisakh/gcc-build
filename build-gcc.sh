@@ -36,6 +36,7 @@ download_resources() {
   echo "Downloading Pre-requisites"
   echo "Cloning binutils"
   git clone git://sourceware.org/git/binutils-gdb.git -b master binutils --depth=1
+  sed -i '/^development=/s/true/false/' binutils/bfd/development.sh
   echo "Cloned binutils!"
   echo "Cloning GCC"
   git clone git://gcc.gnu.org/git/gcc.git -b master gcc --depth=1
@@ -49,7 +50,7 @@ build_binutils() {
   mkdir build-binutils
   cd build-binutils
   env CFLAGS="$OPT_FLAGS" CXXFLAGS="$OPT_FLAGS" \
-  ../binutils/configure --target=$TARGET \
+    ../binutils/configure --target=$TARGET \
     --disable-docs \
     --disable-gdb \
     --disable-nls \
@@ -74,7 +75,7 @@ build_gcc() {
   mkdir build-gcc
   cd build-gcc
   env CFLAGS="$OPT_FLAGS" CXXFLAGS="$OPT_FLAGS" \
-  ../gcc/configure --target=$TARGET \
+    ../gcc/configure --target=$TARGET \
     --disable-decimal-float \
     --disable-docs \
     --disable-gcov \
