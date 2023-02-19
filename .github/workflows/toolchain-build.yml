@@ -28,7 +28,7 @@ jobs:
     - name: Setup
       run: |
         sudo dnf groupinstall "Development tools" -y
-        sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ texinfo bison flex cmake which ninja-build clang lld bzip2 -y
+        sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ texinfo bison flex cmake which ninja-build clang lld bzip2 binutils-arm-linux-gnu binutils-aarch64-linux-gnu -y
     - name: Build & Push
       run: |
         git config --global user.name "${GITHUB_USER}"
