@@ -28,6 +28,9 @@ export PREFIX="$WORK_DIR/../gcc-${arch}"
 export PATH="$PREFIX/bin:/usr/bin/core_perl:$PATH"
 export OPT_FLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections"
 
+echo "Cleaning up previously cloned repos..."
+rm -rf $WORK_DIR/{binutils,build-binutils,build-gcc,gcc}
+
 echo "||                                                                    ||"
 echo "|| Building Bare Metal Toolchain for ${arch} with ${TARGET} as target ||"
 echo "||                                                                    ||"
