@@ -26,6 +26,9 @@ export WORK_DIR="$PWD"
 export PREFIX="./../gcc-${arch}"
 export PATH="$PREFIX/bin:$PATH"
 
+echo "Cleaning up previously cloned repos..."
+rm -rf $WORK_DIR/llvm-project
+
 echo "Building Integrated lld for ${arch} with ${TARGET_CLANG} as target"
 
 download_resources() {
