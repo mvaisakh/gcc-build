@@ -16,7 +16,7 @@ jobs:
   build-arm64-tc:
     runs-on: ubuntu-latest
     container:
-      image: fedora:35
+      image: fedora:latest
 
     steps:
     - uses: actions/checkout@v3
@@ -58,7 +58,7 @@ jobs:
   build-arm-tc:
     runs-on: ubuntu-latest
     container:
-      image: fedora:35
+      image: fedora:latest
 
     steps:
     - uses: actions/checkout@v3
