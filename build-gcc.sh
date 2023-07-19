@@ -90,7 +90,7 @@ build_gcc() {
     --disable-nls \
     --disable-shared \
     --enable-default-ssp \
-    --enable-languages=c,c++ \
+    --enable-languages=c,c++,fortran \
     --enable-threads=posix \
     --prefix="$PREFIX" \
     --with-gnu-as \
