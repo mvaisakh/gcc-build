@@ -19,7 +19,7 @@ jobs:
       image: fedora:latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set build date
       id: get-date
       run: |
@@ -61,7 +61,7 @@ jobs:
       image: fedora:latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set build date
       id: get-date
       run: |
