@@ -7,6 +7,9 @@ echo "*****************************************"
 echo "* Building Bare-Metal Bleeding Edge GCC *"
 echo "*****************************************"
 
+# Declare the number of jobs to run simultaneously
+JOBS=$(nproc --all)
+
 # TODO: Add more dynamic option handling
 while getopts a: flag; do
   case "${flag}" in
@@ -29,7 +32,7 @@ export PATH="$PREFIX/bin:/usr/bin/core_perl:$PATH"
 export OPT_FLAGS="-flto -flto-compression-level=10 -O3 -pipe -ffunction-sections -fdata-sections"
 
 echo "Cleaning up previously cloned repos..."
-rm -rf $WORK_DIR/{binutils,build-binutils,build-gcc,gcc}
+rm -rf "$WORK_DIR"/{binutils,build-binutils,build-gcc,gcc}
 
 echo "||                                                                    ||"
 echo "|| Building Bare Metal Toolchain for ${arch} with ${TARGET} as target ||"
@@ -53,7 +56,7 @@ build_binutils() {
   mkdir build-binutils
   cd build-binutils
   env CFLAGS="$OPT_FLAGS" CXXFLAGS="$OPT_FLAGS" \
-    ../binutils/configure --target=$TARGET \
+    ../binutils/configure --target="$TARGET" \
     --disable-docs \
     --disable-gdb \
     --disable-nls \
@@ -62,8 +65,8 @@ build_binutils() {
     --prefix="$PREFIX" \
     --with-pkgversion="Eva Binutils" \
     --with-sysroot
-  make -j$(nproc --all)
-  make install -j$(nproc --all)
+  make -j"$JOBS"
+  make install -j"$JOBS"
   cd ../
   echo "Built Binutils, proceeding to next step...."
 }
@@ -78,7 +81,7 @@ build_gcc() {
   mkdir build-gcc
   cd build-gcc
   env CFLAGS="$OPT_FLAGS" CXXFLAGS="$OPT_FLAGS" \
-    ../gcc/configure --target=$TARGET \
+    ../gcc/configure --target="$TARGET" \
     --disable-decimal-float \
     --disable-docs \
     --disable-gcov \
@@ -101,10 +104,10 @@ build_gcc() {
     --with-pkgversion="Eva GCC" \
     --with-sysroot
 
-  make all-gcc -j$(nproc --all)
-  make all-target-libgcc -j$(nproc --all)
-  make install-gcc -j$(nproc --all)
-  make install-target-libgcc -j$(nproc --all)
+  make all-gcc -j"$JOBS"
+  make all-target-libgcc -j"$JOBS"
+  make install-gcc -j"$JOBS"
+  make install-target-libgcc -j"$JOBS"
   echo "Built GCC!"
 }
 
