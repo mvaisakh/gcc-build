@@ -48,13 +48,6 @@ jobs:
         git commit -as -m "Import ARM64 GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-version)" -m "LLD: $(/bin/cat /tmp/lld-arm64-version)"
         git push origin gcc-master -f
 
-    - uses: yanzay/notify-telegram@v0.1.0
-      if: always()
-      with:
-        chat: ${{ secrets.CHAT }} # user id or channel name secret
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }} # token secret
-        status: ${{ job.status }} # do not modify this line
-
   build-arm-tc:
     runs-on: ubuntu-latest
     container:
@@ -90,9 +83,4 @@ jobs:
         git commit -as -m "Import ARM GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-arm-version)" -m "LLD: $(/bin/cat /tmp/lld-arm-version)"
         git push origin gcc-master -f
         curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" -d chat_id="${CHAT_ID}" -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="It's $(date +%A) my dudes!"
-    - uses: yanzay/notify-telegram@v0.1.0
-      if: always()
-      with:
-        chat: ${{ secrets.CHAT }} # user id or channel name secret
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }} # token secret
-        status: ${{ job.status }} # do not modify this line
+
