@@ -29,12 +29,8 @@ jobs:
       run: |
         sudo dnf groupinstall "Development tools" -y
         sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ texinfo bison flex cmake which ninja-build clang lld bzip2 binutils-arm-linux-gnu binutils-aarch64-linux-gnu -y
-    - name: Build & Push
+    - name: Build
       run: |
-        git config --global user.name "${GITHUB_USER}"
-        git config --global user.email "${GITHUB_EMAIL}"
-        git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/arm64-gcc ../gcc-arm64 -b gcc-master
-        rm -rf ../gcc-arm64/*
         chmod a+x build-*.sh
         curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" -d chat_id="${CHAT_ID}" -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="<b>Starting ARM64 GCC Build</b>"
         ./build-gcc.sh -a arm64
@@ -44,9 +40,6 @@ jobs:
         ./bin/aarch64-elf-gcc -v 2>&1 | tee /tmp/gcc-version
         ./bin/aarch64-elf-ld.lld -v 2>&1 | tee /tmp/lld-arm64-version
         bash "$script_dir/strip-binaries.sh"
-        git add . -f
-        git commit -as -m "Import ARM64 GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-version)" -m "LLD: $(/bin/cat /tmp/lld-arm64-version)"
-        git push origin gcc-master -f
 
   build-arm-tc:
     runs-on: ubuntu-latest
@@ -64,12 +57,8 @@ jobs:
       run: |
         sudo dnf groupinstall "Development tools" -y
         sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ texinfo bison flex cmake which ninja-build clang lld bzip2 -y
-    - name: Build & Push
+    - name: Build
       run: |
-        git config --global user.name "${GITHUB_USER}"
-        git config --global user.email "${GITHUB_EMAIL}"
-        git clone https://"${GITHUB_USER}":"${GITHUB_TOKEN}"@github.com/mvaisakh/gcc-arm ../gcc-arm -b gcc-master
-        rm -rf ../gcc-arm/*
         chmod a+x build-*.sh
         curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" -d chat_id="${CHAT_ID}" -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="<b>Starting ARM (32-bit) GCC Build</b>"
         ./build-gcc.sh -a arm
@@ -79,8 +68,5 @@ jobs:
         ./bin/arm-eabi-gcc -v 2>&1 | tee /tmp/gcc-arm-version
         ./bin/arm-eabi-ld.lld -v 2>&1 | tee /tmp/lld-arm-version
         bash "$script_dir/strip-binaries.sh"
-        git add . -f
-        git commit -as -m "Import ARM GCC ${{ steps.get-date.outputs.date }}" -m "Build completed on: $(/bin/date)" -m "Configuration: $(/bin/cat /tmp/gcc-arm-version)" -m "LLD: $(/bin/cat /tmp/lld-arm-version)"
-        git push origin gcc-master -f
         curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" -d chat_id="${CHAT_ID}" -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="It's $(date +%A) my dudes!"
 
