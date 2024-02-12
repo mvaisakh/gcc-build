@@ -40,6 +40,15 @@ jobs:
         ./bin/aarch64-elf-gcc -v 2>&1 | tee /tmp/gcc-version
         ./bin/aarch64-elf-ld.lld -v 2>&1 | tee /tmp/lld-arm64-version
         bash "$script_dir/strip-binaries.sh"
+    - name: Create tarball
+      run: |
+        tar -cf eva-gcc-arm64-$(/bin/date -u '+%d%m%Y%I%M').xz *
+
+    - uses: actions/upload-artifact@main
+      with:
+       name: arm64-tar
+       path: |
+         ../gcc-arm64/*.xz
 
   build-arm-tc:
     runs-on: ubuntu-latest
@@ -69,4 +78,29 @@ jobs:
         ./bin/arm-eabi-ld.lld -v 2>&1 | tee /tmp/lld-arm-version
         bash "$script_dir/strip-binaries.sh"
         curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" -d chat_id="${CHAT_ID}" -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="It's $(date +%A) my dudes!"
+    - name: Create tarball
+      run: |
+        tar -cf eva-gcc-arm-$(/bin/date -u '+%d%m%Y%I%M').xz *
 
+    - uses: actions/upload-artifact@main
+      with:
+       name: arm-tar
+       path: |
+         ../gcc-arm/*.xz
+
+  publish-release:
+      needs: [build-arm64-tc,build-arm-tc]
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v4
+        - name: Restoring artifacts
+          uses: actions/download-artifact@main
+          with:
+            name: release-zip
+            path: ${{ github.workspace }}
+        - name: Release Tag
+          id: release_tag
+          run: echo "TAG_NAME='GCC Build $(date -u +%d%m%Y%I%M)'" >> $GITHUB_ENV
+        - name: Create Release
+          run: gh release create ${{ env.TAG_NAME }} --generate-notes -p *.zip
