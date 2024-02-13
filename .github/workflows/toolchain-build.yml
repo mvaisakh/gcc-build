@@ -47,7 +47,7 @@ jobs:
 
     - uses: actions/upload-artifact@main
       with:
-       name: tarballs
+       name: aarch64-tarball
        path: |
          *.xz
          gcc-version
@@ -82,7 +82,7 @@ jobs:
 
     - uses: actions/upload-artifact@main
       with:
-       name: tarballs
+       name: arm-tarball
        path: |
          *.xz
 
@@ -95,14 +95,13 @@ jobs:
         - name: Restoring artifacts
           uses: actions/download-artifact@main
           with:
-            name: tarballs
             path: ${{ github.workspace }}
         - name: Release Tag
           id: release_tag
           run: echo "TAG_NAME='GCC Build $(date -u +%d%m%Y%I%M)'" >> $GITHUB_ENV
         - name: Create Release
           run: |
-            gh release create ${{ env.TAG_NAME }} -F gcc-version *.xz
+            gh release create ${{ env.TAG_NAME }} -F aarch64-tarball/gcc-version *.xz
 
   send-day:
     needs: [publish-release]
