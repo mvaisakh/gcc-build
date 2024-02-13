@@ -105,6 +105,7 @@ jobs:
           run: gh release create ${{ env.TAG_NAME }} --generate-notes -p *.zip
 
   send-day:
+    needs: [publish-release]
     runs-on: ubuntu-latest
 
     steps:
