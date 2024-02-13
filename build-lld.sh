@@ -23,7 +23,7 @@ done
 
 # Let's keep this as is
 export WORK_DIR="$PWD"
-export PREFIX="./../gcc-${arch}"
+export PREFIX="./gcc-${arch}"
 export PATH="$PREFIX/bin:$PATH"
 
 echo "Cleaning up previously cloned repos..."

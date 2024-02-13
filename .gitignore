@@ -3,3 +3,4 @@ build-binutils/
 build-gcc/
 gcc/
 stdin.info
+gcc-*/
