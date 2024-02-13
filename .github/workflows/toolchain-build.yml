@@ -36,7 +36,7 @@ jobs:
         ./build-gcc.sh -a arm64
         ./build-lld.sh -a arm64
         script_dir=$(pwd)
-        cd ../gcc-arm64
+        cd gcc-arm64
         ./bin/aarch64-elf-gcc -v 2>&1 | tee /tmp/gcc-version
         ./bin/aarch64-elf-ld.lld -v 2>&1 | tee /tmp/lld-arm64-version
         bash "$script_dir/strip-binaries.sh"
@@ -48,7 +48,7 @@ jobs:
       with:
        name: arm64-tar
        path: |
-         ../gcc-arm64/*.xz
+         gcc-arm64/*.xz
 
   build-arm-tc:
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
         ./build-gcc.sh -a arm
         ./build-lld.sh -a arm
         script_dir=$(pwd)
-        cd ../gcc-arm
+        cd gcc-arm
         ./bin/arm-eabi-gcc -v 2>&1 | tee /tmp/gcc-arm-version
         ./bin/arm-eabi-ld.lld -v 2>&1 | tee /tmp/lld-arm-version
         bash "$script_dir/strip-binaries.sh"
@@ -86,7 +86,7 @@ jobs:
       with:
        name: arm-tar
        path: |
-         ../gcc-arm/*.xz
+         gcc-arm/*.xz
 
   publish-release:
       needs: [build-arm64-tc,build-arm-tc]
