@@ -37,18 +37,20 @@ jobs:
         ./build-lld.sh -a arm64
         script_dir=$(pwd)
         cd gcc-arm64
-        ./bin/aarch64-elf-gcc -v 2>&1 | tee /tmp/gcc-version
-        ./bin/aarch64-elf-ld.lld -v 2>&1 | tee /tmp/lld-arm64-version
+        ./bin/aarch64-elf-gcc -v 2>&1 | tee ../gcc-version
+        ./bin/aarch64-elf-ld.lld -v 2>&1 | tee ../lld-arm64-version
         bash "$script_dir/strip-binaries.sh"
+        cd ../ && cat lld-arm64-version >> gcc-version
     - name: Create tarball
       run: |
-        tar -cf eva-gcc-arm64-$(/bin/date -u '+%d%m%Y%I%M').xz *
+        tar -cf eva-gcc-arm64-$(/bin/date -u '+%d%m%Y%I%M').xz gcc-arm64/*
 
     - uses: actions/upload-artifact@main
       with:
-       name: arm64-tar
+       name: tarballs
        path: |
          gcc-arm64/*.xz
+         gcc-version
 
   build-arm-tc:
     runs-on: ubuntu-latest
@@ -73,17 +75,14 @@ jobs:
         ./build-gcc.sh -a arm
         ./build-lld.sh -a arm
         script_dir=$(pwd)
-        cd gcc-arm
-        ./bin/arm-eabi-gcc -v 2>&1 | tee /tmp/gcc-arm-version
-        ./bin/arm-eabi-ld.lld -v 2>&1 | tee /tmp/lld-arm-version
         bash "$script_dir/strip-binaries.sh"
     - name: Create tarball
       run: |
-        tar -cf eva-gcc-arm-$(/bin/date -u '+%d%m%Y%I%M').xz *
+        tar -cf eva-gcc-arm-$(/bin/date -u '+%d%m%Y%I%M').xz gcc-arm/*
 
     - uses: actions/upload-artifact@main
       with:
-       name: arm-tar
+       name: tarballs
        path: |
          gcc-arm/*.xz
 
@@ -96,13 +95,14 @@ jobs:
         - name: Restoring artifacts
           uses: actions/download-artifact@main
           with:
-            name: release-zip
+            name: tarballs
             path: ${{ github.workspace }}
         - name: Release Tag
           id: release_tag
           run: echo "TAG_NAME='GCC Build $(date -u +%d%m%Y%I%M)'" >> $GITHUB_ENV
         - name: Create Release
-          run: gh release create ${{ env.TAG_NAME }} --generate-notes -p *.zip
+          run: |
+            gh release create ${{ env.TAG_NAME }} -F gcc-version *.xz
 
   send-day:
     needs: [publish-release]
