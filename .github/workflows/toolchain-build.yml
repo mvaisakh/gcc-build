@@ -98,7 +98,7 @@ jobs:
             path: ${{ github.workspace }}
         - name: Release Tag
           id: release_tag
-          run: echo "TAG_NAME='GCC Build $(date -u +%d%m%Y%I%M)'" >> $GITHUB_ENV
+          run: echo "TAG_NAME='$(date -u +%d%m%Y%I%M)'" >> $GITHUB_ENV
         - name: Create Release
           run: |
             gh release create ${{ env.TAG_NAME }} -F aarch64-tarball/gcc-version */*.xz
