@@ -44,7 +44,7 @@ jobs:
         cd ../ && cat lld-arm64-version >> gcc-version
     - name: Create tarball
       run: |
-        tar -cvf eva-gcc-arm64-$(/bin/date -u '+%d%m%Y%I%M').xz gcc-arm64/*
+        tar -cvf eva-gcc-arm64-$(/bin/date -u '+%d%m%Y').xz gcc-arm64/*
 
     - uses: actions/upload-artifact@main
       with:
@@ -79,7 +79,7 @@ jobs:
         bash "$script_dir/strip-binaries.sh"
     - name: Create tarball
       run: |
-        tar -cvf eva-gcc-arm-$(/bin/date -u '+%d%m%Y%I%M').xz gcc-arm/*
+        tar -cvf eva-gcc-arm-$(/bin/date -u '+%d%m%Y').xz gcc-arm/*
 
     - uses: actions/upload-artifact@main
       with:
@@ -99,7 +99,7 @@ jobs:
             path: ${{ github.workspace }}
         - name: Release Tag
           id: release_tag
-          run: echo "TAG_NAME='$(date -u +%d%m%Y%I%M)'" >> $GITHUB_ENV
+          run: echo "TAG_NAME='$(date -u +%d%m%Y)'" >> $GITHUB_ENV
         - name: Create Release
           run: |
             gh release create ${{ env.TAG_NAME }} -F aarch64-tarball/gcc-version */*.xz
