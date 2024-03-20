@@ -29,7 +29,7 @@ jobs:
     - name: Setup
       run: |
         sudo dnf groupinstall "Development tools" -y
-        sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ texinfo bison flex cmake which ninja-build clang lld bzip2 binutils-arm-linux-gnu binutils-aarch64-linux-gnu -y
+        sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ texinfo bison flex cmake which ninja-build clang lld bzip2 binutils-arm-linux-gnu binutils-aarch64-linux-gnu file -y
     - name: Build
       run: |
         chmod a+x build-*.sh
@@ -44,7 +44,7 @@ jobs:
         cd ../ && cat lld-arm64-version >> gcc-version
     - name: Create tarball
       run: |
-        tar -cvf eva-gcc-arm64-$(/bin/date -u '+%d%m%Y%I%M').xz gcc-arm64/*
+        tar -cvf eva-gcc-arm64-$(/bin/date -u '+%d%m%Y').xz gcc-arm64/*
 
     - uses: actions/upload-artifact@main
       with:
@@ -79,7 +79,7 @@ jobs:
         bash "$script_dir/strip-binaries.sh"
     - name: Create tarball
       run: |
-        tar -cvf eva-gcc-arm-$(/bin/date -u '+%d%m%Y%I%M').xz gcc-arm/*
+        tar -cvf eva-gcc-arm-$(/bin/date -u '+%d%m%Y').xz gcc-arm/*
 
     - uses: actions/upload-artifact@main
       with:
@@ -99,7 +99,7 @@ jobs:
             path: ${{ github.workspace }}
         - name: Release Tag
           id: release_tag
-          run: echo "TAG_NAME='$(date -u +%d%m%Y%I%M)'" >> $GITHUB_ENV
+          run: echo "TAG_NAME='$(date -u +%d%m%Y)'" >> $GITHUB_ENV
         - name: Create Release
           run: |
             gh release create ${{ env.TAG_NAME }} -F aarch64-tarball/gcc-version */*.xz
@@ -113,4 +113,3 @@ jobs:
         run: |
           curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" -d chat_id="${CHAT_ID}" -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="It's $(date +%A) my dudes!"
           curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" -d chat_id="${CHAT_ID}" -d "disable_web_page_preview=true" -d "parse_mode=html" -d text="The year is $(date +'%j' | awk '{printf "%.2f\n", $0 / 365.25 * 100}')% complete. Time is flying."
-          
