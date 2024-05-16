@@ -54,10 +54,7 @@ git clone https://github.com/mvaisakh/gcc-build.git gcc-build
 
 ## Looking for precompiled toolchains?
 
-My GCC Cross Compiler builds are automated and pushed biweekly i.e. on Sundays & Thursdays at 00:00 GMT+5:30 (IST). They are pushed to:
-* **[ARM64](https://github.com/mvaisakh/gcc-arm64)**
-* **[ARM32](https://github.com/mvaisakh/gcc-arm)**
-* **[X86_64](https://github.com/mvaisakh/gcc-x86)** (Not built on cron anymore)
+My GCC Cross Compiler builds are automated and pushed biweekly i.e. on Sundays & Thursdays at 00:00 GMT+5:30 (IST). [They are pushed to the releases page](https://github.com/mvaisakh/gcc-build/releases/latest)!
 
 ## Contributing to this repo
 
