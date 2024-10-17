@@ -25,7 +25,7 @@ jobs:
       id: get-date
       run: |
         ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
-        echo ::set-output name=date::$(/bin/date -u "+%Y%m%d")
+        echo "date=$(/bin/date -u "+%Y%m%d")" >> "$GITHUB_OUTPUT"
     - name: Setup
       run: |
         sudo dnf groupinstall "Development tools" -y
@@ -64,7 +64,7 @@ jobs:
       id: get-date
       run: |
         ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
-        echo ::set-output name=date::$(/bin/date -u "+%Y%m%d")
+        echo "date=$(/bin/date -u "+%Y%m%d")" >> "$GITHUB_OUTPUT"
     - name: Setup
       run: |
         sudo dnf groupinstall "Development tools" -y
