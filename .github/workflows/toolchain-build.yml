@@ -16,8 +16,6 @@ env:
 jobs:
   build-arm64-tc:
     runs-on: ubuntu-latest
-    container:
-      image: fedora:latest
 
     steps:
     - uses: actions/checkout@v4
@@ -28,8 +26,8 @@ jobs:
         echo ::set-output name=date::$(/bin/date -u "+%Y%m%d")
     - name: Setup
       run: |
-        sudo dnf groupinstall "Development tools" -y
-        sudo dnf install mpfr-devel gmp-devel libmpc-devel zlib-devel glibc-devel.i686 glibc-devel binutils-devel g++ texinfo bison flex cmake which ninja-build clang lld bzip2 binutils-arm-linux-gnu binutils-aarch64-linux-gnu file -y
+        sudo apt-get update
+        sudo apt-get install -y flex bison ncurses-dev texinfo gcc gperf patch libtool automake g++ libncurses5-dev gawk subversion expat libexpat1-dev python-all-dev binutils-dev bc libcap-dev autoconf libgmp-dev build-essential pkg-config libmpc-dev libmpfr-dev autopoint gettext txt2man liblzma-dev libssl-dev libz-dev mercurial wget tar cmake zstd ninja-build lz4 liblz4-tool liblz4-dev lzma --fix-broken --fix-missing
     - name: Build
       run: |
         chmod a+x build-*.sh
