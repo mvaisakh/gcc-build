@@ -56,6 +56,7 @@ build_lld() {
     -DCMAKE_CXX_COMPILER="$(which clang++)" \
     -DCMAKE_C_COMPILER="$(which clang)" \
     -DLLVM_OPTIMIZED_TABLEGEN=True \
+    -DLLVM_ENABLE_LIBXML2=Off \
     -DLLVM_USE_LINKER=lld \
     -DLLVM_ENABLE_LTO=Full \
     -DCMAKE_BUILD_TYPE=Release \
