@@ -72,7 +72,7 @@ build_lld() {
     -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON \
     -DCMAKE_C_FLAGS="-O3" \
     -DCMAKE_CXX_FLAGS="-O3" \
-    -DLLVM_ENABLE_PIC=OFF \
+    -DLLVM_ENABLE_PIC=ON \
     "${WORK_DIR}"/llvm-project/llvm
   ninja -j$(nproc --all)
   ninja -j$(nproc --all) install
