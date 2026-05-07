@@ -39,7 +39,7 @@ jobs:
           tar -cvf gcc-instrumented-${{ matrix.arch }}.xz gcc-${{ matrix.arch }}/*
 
       - name: Upload Instrumented Toolchain
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: gcc-instrumented-${{ matrix.arch }}
           path: |
@@ -89,7 +89,7 @@ jobs:
           make ARCH=$KARCH CROSS_COMPILE=$CROSS -j$(nproc) || true
 
       - name: Upload PGO Profiles
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pgo-profiles-${{ matrix.arch }}
           path: pgo-profiles-${{ matrix.arch }}/
