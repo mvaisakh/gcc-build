@@ -21,7 +21,7 @@ jobs:
         arch: [arm64, arm]
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Setup Dependencies
         run: |
@@ -54,7 +54,7 @@ jobs:
         arch: [arm64, arm]
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Download Instrumented Toolchain
         uses: actions/download-artifact@v4
@@ -66,7 +66,7 @@ jobs:
         run: tar -xvf gcc-instrumented-${{ matrix.arch }}.xz
 
       - name: Checkout Training Target (Linux Kernel)
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: torvalds/linux
           ref: master
@@ -103,7 +103,7 @@ jobs:
         arch: [arm64, arm]
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Set build date
       id: get-date
       run: |
@@ -148,7 +148,7 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - uses: actions/checkout@v6
+        - uses: actions/checkout@v7
         - name: Restoring artifacts
           uses: actions/download-artifact@main
           with:
