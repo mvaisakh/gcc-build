@@ -35,16 +35,46 @@ This repository contains the script needed to compile bare metal GCC for various
 
 ## Usage
 
-Running this script is quite simple. We start by cloning this repository:
+Running this script is quite simple. Start by cloning this repository:
+
 ```bash
 git clone https://github.com/mvaisakh/gcc-build.git gcc-build
 ```
-```bash
-./build-gcc.sh -a <architechture>
-```
-> As of now, I only support **arm**, **arm64** and **x86 (compiles for x86_64 only)**. This list is subject to change as I receive requests.
 
-> Keep in mind that this script contains just the bare minimum prerequisites.
+```bash
+cd gcc-build
+./build-gcc.sh -a <architecture>
+```
+
+Use `-h` to print the available options and supported targets:
+
+```bash
+./build-gcc.sh -h
+./build-lld.sh -h
+```
+
+Supported architectures:
+
+- `arm` -> `arm-eabi`
+- `arm64` -> `aarch64-elf`
+- `arm64gnu` -> `aarch64-linux-gnu`
+- `riscv64` -> `riscv64-elf`
+- `x86` -> `x86_64-elf`
+
+The build scripts also accept the PGO phases used by the project:
+
+- `normal` (default)
+- `instrument`
+- `optimize`
+
+Example:
+
+```bash
+./build-gcc.sh -a riscv64 -p instrument
+./build-lld.sh -a arm64
+```
+
+> Keep in mind that the scripts contain the minimum prerequisites needed for a clean bare-metal cross toolchain build.
 
 ## Credits
 
